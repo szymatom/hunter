@@ -4,9 +4,11 @@ import org.hibernate.annotations.GenericGenerator;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -20,7 +22,6 @@ import lombok.experimental.Accessors;
 
 @Getter
 @Setter
-@Table(name = "TRIPLET")
 @Accessors(chain = true)
 @Entity
 public class ThreeEntity {
@@ -30,8 +31,8 @@ public class ThreeEntity {
   @Column(columnDefinition = "CHAR(32)")
   private String id;
 
-  private String word;
-  private Integer triplet;
+  @ElementCollection
+  private Set<Integer> triplet;
 
   @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
   @JoinColumn(name = "MATCHED_ID")

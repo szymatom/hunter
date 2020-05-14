@@ -10,15 +10,15 @@ import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Table;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.experimental.Accessors;
 
 @Getter
 @Setter
 @Entity
-@Table(name = "MATCHED")
+@Accessors(chain = true)
 public class Matched {
   @Id
   @GeneratedValue(generator = "uuid")

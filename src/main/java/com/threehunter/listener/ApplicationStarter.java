@@ -1,23 +1,19 @@
 package com.threehunter.listener;
 
-import com.threehunter.data.InputProvider;
+import com.threehunter.data.DbCreator;
 
 import org.springframework.boot.context.event.ApplicationStartedEvent;
 import org.springframework.context.ApplicationListener;
-
-import java.util.List;
-import java.util.Set;
 
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 public class ApplicationStarter implements ApplicationListener<ApplicationStartedEvent> {
 
-  private final InputProvider inputProvider;
+  private final DbCreator dbCreator;
 
   @Override
   public void onApplicationEvent(ApplicationStartedEvent applicationStartedEvent) {
-    List<Set<Integer>> input = inputProvider.provide();
-    System.out.println("hello world");
+    dbCreator.create();
   }
 }
