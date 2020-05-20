@@ -14,6 +14,6 @@ public class ApplicationStarter implements ApplicationListener<ApplicationStarte
 
   @Override
   public void onApplicationEvent(ApplicationStartedEvent applicationStartedEvent) {
-    statsEngine.run();
+    statsEngine.runNiner();
   }
 }

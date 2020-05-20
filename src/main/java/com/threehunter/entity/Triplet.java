@@ -50,8 +50,4 @@ public class Triplet {
         successfulDraws.get(successfulDraws.size() - 1) - successfulDraws.get(successfulDraws.size() - 2) :
         0;
   }
-
-
-
-
 }
