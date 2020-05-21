@@ -27,6 +27,11 @@ public class Triplet {
     this.drawings = drawings;
   }
 
+  @Override
+  public String toString() {
+    return String.format("Triplet: %d, %d, %d; ", numbers.get(0), numbers.get(1), numbers.get(2));
+  }
+
   public static Triplet of(List<Integer> numbers, List<Set<Integer>> drawings) {
     Triplet triplet = new Triplet(numbers, drawings);
     triplet.prepareStats();

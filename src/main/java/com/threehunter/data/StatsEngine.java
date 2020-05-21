@@ -23,6 +23,7 @@ public class StatsEngine {
 
     private final List<Set<Integer>> drawings;
     private final Integer rangeClose;
+    private long counter = 0;
 
     public void run() {
       Flux.fromStream(Generator
@@ -45,13 +46,13 @@ public class StatsEngine {
           .subscribe(niner -> {
             if(isNull(mostSuccesses[0]) || mostSuccesses[0].getNumberOfSuccesses() < niner.getNumberOfSuccesses()) {
               mostSuccesses[0] = niner;
+              log.info("Most success: {}", niner);
             }
             if(isNull(shortestDrySpell[0]) || shortestDrySpell[0].getLongestDrySpell() > niner.getLongestDrySpell()) {
               shortestDrySpell[0] = niner;
+              log.info("Shortest dry spell: {}", niner);
             }
           });
-          log.info("Most success: {}", mostSuccesses[0]);
-          log.info("Shortest dry spell: {}", shortestDrySpell[0]);
     }
 
     private List<Triplet> getTriplets() {

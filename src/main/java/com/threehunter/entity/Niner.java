@@ -9,11 +9,13 @@ import java.util.stream.Collectors;
 
 import lombok.Getter;
 import lombok.ToString;
+import lombok.extern.slf4j.Slf4j;
 
 import static java.lang.Math.max;
 
 @Getter
 @ToString
+@Slf4j
 public class Niner {
 
   private final List<Triplet> triplets;
@@ -29,7 +31,7 @@ public class Niner {
   public static Optional<Niner> of(List<Triplet> triplets) {
     if (isValid(triplets)) {
       Niner niner = new Niner(triplets);
-      if (niner.getSuccessfulDraws()) {
+      if (niner.successfulDraws()) {
         niner.prepareStats();
         return Optional.of(niner);
       }
@@ -37,7 +39,7 @@ public class Niner {
     return Optional.empty();
   }
 
-  private boolean getSuccessfulDraws() {
+  private boolean successfulDraws() {
     successfulDraws = tripletSuccessfulDraws(0).stream()
         .map(result -> {
           if (tripletSuccessfulDraws(1).contains(result) && tripletSuccessfulDraws(2).contains(result))
@@ -63,7 +65,7 @@ public class Niner {
 
   private static boolean isValid(List<Triplet> triplets) {
     return triplets.stream()
-        .map(Triplet::getNumbers)
+        .flatMap(triplet -> triplet.getNumbers().stream())
         .collect(Collectors.toSet()).size() == 9;
   }
 
