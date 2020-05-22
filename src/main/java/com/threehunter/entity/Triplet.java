@@ -10,6 +10,7 @@ import java.util.Set;
 import lombok.Getter;
 
 import static java.lang.Math.max;
+import static java.util.Objects.nonNull;
 import static org.springframework.util.CollectionUtils.isEmpty;
 
 @Getter
@@ -47,7 +48,17 @@ public class Triplet {
         numberOfSuccesses++;
       }
     }
+    updateLongestDrySpell();
     successPercentage = (double) numberOfSuccesses / (double) drawings.size();
+  }
+
+  private void updateLongestDrySpell() {
+    if(nonNull(successfulDraws) && !successfulDraws.isEmpty()) {
+      longestDrySpell = max(successfulDraws.get(0), longestDrySpell);
+      longestDrySpell = max(drawings.size() - successfulDraws.get(successfulDraws.size() - 1), longestDrySpell);
+    } else {
+      longestDrySpell = drawings.size();
+    }
   }
 
   private int distanceBetweenTwoLast() {

@@ -12,6 +12,7 @@ import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 
 import static java.lang.Math.max;
+import static java.util.Objects.nonNull;
 
 @Getter
 @ToString
@@ -23,9 +24,11 @@ public class Niner {
   private int longestDrySpell;
   private List<Integer> successfulDraws;
   private int numberOfSuccesses;
+  private final int numberOfDrawings;
 
   private Niner(List<Triplet> triplets) {
     this.triplets = triplets;
+    numberOfDrawings = triplets.get(0).getDrawings().size();
   }
 
   public static Optional<Niner> of(List<Triplet> triplets) {
@@ -61,6 +64,8 @@ public class Niner {
     if (numberOfSuccesses > 1)
       for (int i = 0; i < successfulDraws.size() - 1; i++)
         longestDrySpell = max(distanceBetweenTwo(i), longestDrySpell);
+
+      updateLongestDrySpell();
   }
 
   private static boolean isValid(List<Triplet> triplets) {
@@ -72,4 +77,14 @@ public class Niner {
   private int distanceBetweenTwo(int beginning) {
     return successfulDraws.get(beginning + 1) - successfulDraws.get(beginning);
   }
+
+  private void updateLongestDrySpell() {
+    if(nonNull(successfulDraws) && !successfulDraws.isEmpty()) {
+      longestDrySpell = max(successfulDraws.get(0), longestDrySpell);
+      longestDrySpell = max(numberOfDrawings - successfulDraws.get(successfulDraws.size() - 1), longestDrySpell);
+    } else {
+      longestDrySpell = numberOfDrawings;
+    }
+  }
+
 }
